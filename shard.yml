@@ -4,6 +4,6 @@ version: 0.32.0
 dependencies:
   db:
     github: Arab-Open-Source/crystal-db
-    commit: e4de09060c0426d88c8de9c806a1c43ed3564ea6
+    commit: 161794a6c9c3ead9b7799b0cdd5d385fae3bb9c4
 
 crystal: ">= 1.0.0, < 2.0.0"
