@@ -1,0 +1,43 @@
+name: Altair compatibility
+
+on:
+  push:
+    branches: [altair/v0.32.0]
+  pull_request:
+    branches: [altair/v0.32.0]
+  schedule:
+    - cron: '0 6 * * 1'
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: pg_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Crystal
+        uses: crystal-lang/install-crystal@v1
+      - name: Install shards
+        run: shards install
+      - name: Format check
+        run: crystal tool format --check src spec
+      - name: Specs
+        run: crystal spec
+        env:
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432/pg_test
