@@ -3,7 +3,7 @@ version: 0.32.0
 
 dependencies:
   db:
-    github: HMH-3080/crystal-db
-    commit: 6adf6ffaa948999a93bc95fdddf300b8426eaf0e
+    github: Arab-Open-Source/crystal-db
+    commit: e4de09060c0426d88c8de9c806a1c43ed3564ea6
 
 crystal: ">= 1.0.0, < 2.0.0"
